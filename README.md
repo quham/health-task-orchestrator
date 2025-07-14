@@ -1,73 +1,162 @@
-# Welcome to your Lovable project
+# Healthcare Task Manager
 
-## Project info
+A React-based task management system designed for healthcare professionals to manage and execute long-running operations with real-time monitoring capabilities.
 
-**URL**: https://lovable.dev/projects/bd15a0cb-8fa1-4c75-a42e-3d21f8351e95
+## Features
 
-## How can I edit this code?
+- **Task Creation**: Simple form to create tasks with title and description
+- **Task Management**: Run, pause, resume, and cancel operations
+- **Real-time Progress**: Live progress indicators for running tasks (~30 seconds execution)
+- **Status Tracking**: Visual status indicators (Pending, In Progress, Paused, Completed, Cancelled)
+- **Mock Backend**: Simulated API with realistic task execution behavior
+- **Responsive Design**: Modern UI built with Tailwind CSS and shadcn/ui components
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18, TypeScript, Vite
+- **UI Components**: shadcn/ui, Tailwind CSS
+- **Icons**: Lucide React
+- **State Management**: React Hooks
+- **Date Handling**: date-fns
+- **Mock API**: Custom service with simulated async operations
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/bd15a0cb-8fa1-4c75-a42e-3d21f8351e95) and start prompting.
+## Quick Start
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js 18 or higher
+- npm or yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Local Development
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. **Clone and install dependencies:**
+   ```bash
+   git clone <repository-url>
+   cd healthcare-task-manager
+   npm install
+   ```
 
-Follow these steps:
+2. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. **Open your browser:**
+   Navigate to `http://localhost:5173`
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Docker Deployment
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. **Build and run with Docker:**
+   ```bash
+   docker build -t healthcare-task-manager .
+   docker run -p 3000:3000 healthcare-task-manager
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+2. **Or use Docker Compose:**
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Access the application:**
+   Navigate to `http://localhost:3000`
+
+## Usage Guide
+
+### Creating Tasks
+1. Use the "Create New Task" form on the left
+2. Enter a descriptive title and optional description
+3. Click "Create Task" to add it to the task list
+
+### Managing Tasks
+- **Run**: Start task execution (takes ~30 seconds)
+- **Pause**: Temporarily stop a running task
+- **Resume**: Continue a paused task from where it left off
+- **Cancel**: Stop and mark task as cancelled
+
+### Task Status
+- **Pending**: Task created but not started
+- **In Progress**: Task currently executing with progress indicator
+- **Paused**: Task temporarily stopped, can be resumed
+- **Completed**: Task finished successfully with results
+- **Cancelled**: Task stopped by user action
+
+## Architecture & Technical Decisions
+
+### Frontend Architecture
+- **Component-based**: Modular React components for reusability
+- **Custom Hooks**: `useTasks` hook encapsulates all task-related state and operations
+- **Type Safety**: Full TypeScript implementation with proper interfaces
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+
+### Mock Backend Simulation
+- **Realistic Timing**: 30-second task execution with 500ms progress updates
+- **State Persistence**: In-memory task storage with proper state management
+- **Error Handling**: Comprehensive error states and user feedback
+- **Progress Tracking**: Real-time progress updates during task execution
+
+### Key Design Patterns
+- **Service Layer**: Separated API logic in `mockApiService`
+- **Custom Hooks**: Centralized state management with `useTasks`
+- **Component Composition**: Reusable UI components with clear props interfaces
+- **Error Boundaries**: Toast notifications for user feedback
+
+### Assumptions Made
+1. Tasks are simple operations without complex dependencies
+2. Progress is linear and can be simulated with time-based increments
+3. No user authentication required for this demo
+4. Tasks don't persist between browser sessions (in-memory storage)
+5. Single-user application (no concurrent user handling)
+
+## File Structure
+
+```
+src/
+├── components/           # React components
+│   ├── ui/              # shadcn/ui components
+│   ├── TaskCard.tsx     # Individual task display
+│   ├── TaskForm.tsx     # Task creation form
+│   └── TaskList.tsx     # Task list container
+├── hooks/
+│   └── useTasks.ts      # Task management hook
+├── services/
+│   └── mockApi.ts       # Simulated backend API
+├── types/
+│   └── task.ts          # TypeScript interfaces
+└── pages/
+    └── Index.tsx        # Main application page
 ```
 
-**Edit a file directly in GitHub**
+## Future Enhancements
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- Real backend API integration
+- Task persistence with database
+- User authentication and multi-tenancy
+- Task scheduling and dependencies
+- Advanced progress indicators
+- Task history and analytics
+- Export functionality
+- WebSocket support for real-time updates
 
-**Use GitHub Codespaces**
+## Testing
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+To run the application and test functionality:
 
-## What technologies are used for this project?
+1. Create multiple tasks with different titles
+2. Start a task and observe the progress indicator
+3. Test pause/resume functionality mid-execution
+4. Cancel tasks at different stages
+5. Verify status updates and result displays
 
-This project is built with:
+## Contributing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+This project was built as a technical demonstration. For production use, consider:
 
-## How can I deploy this project?
+- Adding comprehensive unit and integration tests
+- Implementing proper error boundaries
+- Adding accessibility features
+- Optimizing for performance with large task lists
+- Implementing proper logging and monitoring
 
-Simply open [Lovable](https://lovable.dev/projects/bd15a0cb-8fa1-4c75-a42e-3d21f8351e95) and click on Share -> Publish.
+## License
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is for demonstration purposes only.
