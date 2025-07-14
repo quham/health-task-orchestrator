@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Task, CreateTaskRequest } from '@/types/task';
 import { apiService } from '@/services/api';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
   const pollingTasksRef = useRef<Set<string>>(new Set());
 
   const loadTasks = useCallback(async () => {
@@ -14,11 +13,7 @@ export function useTasks() {
       const allTasks = await apiService.getAllTasks();
       setTasks(allTasks);
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to load tasks',
-        variant: 'destructive',
-      });
+      toast.error('Failed to load tasks');
     }
   }, [toast]);
 
@@ -27,16 +22,9 @@ export function useTasks() {
       setLoading(true);
       await apiService.createTask(request);
       await loadTasks();
-      toast({
-        title: 'Success',
-        description: 'Task created successfully',
-      });
+      toast.success('Task created successfully');
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to create task',
-        variant: 'destructive',
-      });
+      toast.error('Failed to create task');
     } finally {
       setLoading(false);
     }
@@ -64,16 +52,9 @@ export function useTasks() {
     try {
       await apiService.runTask(id);
       startPolling(id);
-      toast({
-        title: 'Task Started',
-        description: 'Task execution has begun',
-      });
+      toast.success('Task execution has begun');
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to start task',
-        variant: 'destructive',
-      });
+      toast.error('Failed to start task');
     }
   }, [startPolling, toast]);
 
@@ -81,16 +62,9 @@ export function useTasks() {
     try {
       await apiService.pauseTask(id);
       await loadTasks();
-      toast({
-        title: 'Task Paused',
-        description: 'Task execution has been paused',
-      });
+      toast.success('Task execution has been paused');
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to pause task',
-        variant: 'destructive',
-      });
+      toast.error('Failed to pause task');
     }
   }, [loadTasks, toast]);
 
@@ -98,16 +72,9 @@ export function useTasks() {
     try {
       await apiService.resumeTask(id);
       startPolling(id);
-      toast({
-        title: 'Task Resumed',
-        description: 'Task execution has been resumed',
-      });
+      toast.success('Task execution has been resumed');
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to resume task',
-        variant: 'destructive',
-      });
+      toast.error('Failed to resume task');
     }
   }, [startPolling, toast]);
 
@@ -116,16 +83,9 @@ export function useTasks() {
       await apiService.cancelTask(id);
       await loadTasks();
       pollingTasksRef.current.delete(id);
-      toast({
-        title: 'Task Cancelled',
-        description: 'Task has been cancelled',
-      });
+      toast.success('Task has been cancelled');
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to cancel task',
-        variant: 'destructive',
-      });
+      toast.error('Failed to cancel task');
     }
   }, [loadTasks, toast]);
 
