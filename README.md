@@ -39,7 +39,6 @@ docker-compose up --build
 The application will be available at:
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000
-- **API Documentation**: http://localhost:8000/docs
 
 ## Local Development Setup
 
@@ -98,11 +97,6 @@ The backend API will be available at http://localhost:8000
 ### Health Check
 - `GET /health` - Health check endpoint
 
-## API Documentation
-
-When running the backend, you can access the interactive API documentation at:
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
 
 ## Project Structure
 
@@ -123,82 +117,14 @@ health-task-orchestrator/
 └── README.md             # This file
 ```
 
-## Key Technical Decisions
+This has been kept quite simple and general and not specific to healthcare setting at the moment.
 
-### Frontend
-- **React with TypeScript**: For type safety and better developer experience
-- **Vite**: For fast development and optimized builds
-- **Tailwind CSS**: For utility-first styling and rapid UI development
-- **Shadcn/ui**: For pre-built, accessible UI components
-- **Custom hooks**: For reusable state management logic
-- **API polling**: For real-time task progress updates
+Basic Additions if continued:
+More properties for task e.g. due date, category, patient, priority
+Templates for different kinds of tasks
+Login and Auth
+From in memory storage to DB with Auth
+Test suite
+Tailor to healthcare setting via discussions with healthcare professionals
+Task Anyalytics: completion rates, completion time etc.
 
-### Backend
-- **FastAPI**: For modern, fast Python web framework with automatic API documentation
-- **Pydantic**: For data validation and serialization
-- **Async/await**: For non-blocking task execution
-- **In-memory storage**: For simplicity (in production, use a database)
-- **CORS middleware**: For frontend integration
-
-### Architecture
-- **RESTful API**: Clean, predictable API design
-- **Separation of concerns**: Clear separation between frontend and backend
-- **Docker containerization**: For consistent deployment across environments
-- **Environment variables**: For configuration management
-
-## Development Notes
-
-### AI Assistance
-This project was developed with assistance from AI tools:
-- **GitHub Copilot**: For code completion and suggestions
-- **ChatGPT**: For architectural decisions and problem-solving
-- **Cursor**: For intelligent code editing and refactoring
-
-### Task Simulation
-Tasks simulate 30-second long-running operations with:
-- Progress updates every 0.5 seconds
-- Pause/resume functionality
-- Cancellation support
-- Real-time status tracking
-
-### Error Handling
-- Comprehensive error handling on both frontend and backend
-- User-friendly error messages
-- Graceful degradation for network issues
-
-## Production Considerations
-
-For production deployment, consider:
-
-1. **Database**: Replace in-memory storage with a proper database (PostgreSQL, MongoDB)
-2. **Authentication**: Add user authentication and authorization
-3. **Logging**: Implement structured logging
-4. **Monitoring**: Add health checks and metrics
-5. **Security**: Implement rate limiting, input validation, and security headers
-6. **Scaling**: Use message queues for task processing (Celery, Redis)
-7. **Environment**: Use environment-specific configuration files
-
-## Testing
-
-To run tests (when implemented):
-
-```bash
-# Frontend tests
-npm test
-
-# Backend tests
-cd backend
-python -m pytest
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.

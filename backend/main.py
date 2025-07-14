@@ -42,7 +42,8 @@ class Task(BaseModel):
     startedAt: Optional[datetime] = None
     completedAt: Optional[datetime] = None
 
-# In-memory storage (in production, use a database)
+# In-memory storage for now
+# Note: restarting backend will reset all tasks
 tasks: Dict[str, Task] = {}
 task_tasks: Dict[str, asyncio.Task] = {}
 
