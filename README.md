@@ -1,162 +1,204 @@
-# Healthcare Task Manager
+# Health Task Orchestrator
 
-A React-based task management system designed for healthcare professionals to manage and execute long-running operations with real-time monitoring capabilities.
+A full-stack web application that allows users to manage and execute long-running tasks with real-time progress tracking, pause/resume functionality, and task cancellation.
 
 ## Features
 
-- **Task Creation**: Simple form to create tasks with title and description
-- **Task Management**: Run, pause, resume, and cancel operations
-- **Real-time Progress**: Live progress indicators for running tasks (~30 seconds execution)
-- **Status Tracking**: Visual status indicators (Pending, In Progress, Paused, Completed, Cancelled)
-- **Mock Backend**: Simulated API with realistic task execution behavior
-- **Responsive Design**: Modern UI built with Tailwind CSS and shadcn/ui components
+- **Task Management**: Create, view, and manage tasks with titles and descriptions
+- **Task Execution**: Start tasks that simulate 30-second long-running operations
+- **Real-time Progress**: Live progress tracking with percentage completion
+- **Task Control**: Pause, resume, and cancel running tasks
+- **Status Tracking**: Monitor task status (pending, in-progress, paused, completed, cancelled)
+- **Modern UI**: Beautiful, responsive interface built with React and Tailwind CSS
+- **Docker Support**: Easy deployment with Docker and Docker Compose
 
 ## Tech Stack
 
-- **Frontend**: React 18, TypeScript, Vite
-- **UI Components**: shadcn/ui, Tailwind CSS
-- **Icons**: Lucide React
-- **State Management**: React Hooks
-- **Date Handling**: date-fns
-- **Mock API**: Custom service with simulated async operations
+### Frontend
+- **React 18** with TypeScript
+- **Vite**
+- **Tailwind CSS** for styling
+- **Shadcn/ui** for UI components
 
-## Quick Start
+### Backend **Python 3.11** 
+docker-compose up --build
+
+## Quick Start with Docker
+
+The easiest way to run the application is using Docker Compose:
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd health-task-orchestrator
+
+# Build and run with Docker Compose
+docker-compose up --build
+```
+
+The application will be available at:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **API Documentation**: http://localhost:8000/docs
+
+## Local Development Setup
 
 ### Prerequisites
+- Node.js 18+ and npm
+- Python 3.11+
+- Git
 
-- Node.js 18 or higher
-- npm or yarn
+### Frontend Setup
 
-### Local Development
+```bash
+# Install dependencies
+npm install
 
-1. **Clone and install dependencies:**
-   ```bash
-   git clone <repository-url>
-   cd healthcare-task-manager
-   npm install
-   ```
-
-2. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
-
-3. **Open your browser:**
-   Navigate to `http://localhost:5173`
-
-### Docker Deployment
-
-1. **Build and run with Docker:**
-   ```bash
-   docker build -t healthcare-task-manager .
-   docker run -p 3000:3000 healthcare-task-manager
-   ```
-
-2. **Or use Docker Compose:**
-   ```bash
-   docker-compose up --build
-   ```
-
-3. **Access the application:**
-   Navigate to `http://localhost:3000`
-
-## Usage Guide
-
-### Creating Tasks
-1. Use the "Create New Task" form on the left
-2. Enter a descriptive title and optional description
-3. Click "Create Task" to add it to the task list
-
-### Managing Tasks
-- **Run**: Start task execution (takes ~30 seconds)
-- **Pause**: Temporarily stop a running task
-- **Resume**: Continue a paused task from where it left off
-- **Cancel**: Stop and mark task as cancelled
-
-### Task Status
-- **Pending**: Task created but not started
-- **In Progress**: Task currently executing with progress indicator
-- **Paused**: Task temporarily stopped, can be resumed
-- **Completed**: Task finished successfully with results
-- **Cancelled**: Task stopped by user action
-
-## Architecture & Technical Decisions
-
-### Frontend Architecture
-- **Component-based**: Modular React components for reusability
-- **Custom Hooks**: `useTasks` hook encapsulates all task-related state and operations
-- **Type Safety**: Full TypeScript implementation with proper interfaces
-- **Responsive Design**: Mobile-first approach with Tailwind CSS
-
-### Mock Backend Simulation
-- **Realistic Timing**: 30-second task execution with 500ms progress updates
-- **State Persistence**: In-memory task storage with proper state management
-- **Error Handling**: Comprehensive error states and user feedback
-- **Progress Tracking**: Real-time progress updates during task execution
-
-### Key Design Patterns
-- **Service Layer**: Separated API logic in `mockApiService`
-- **Custom Hooks**: Centralized state management with `useTasks`
-- **Component Composition**: Reusable UI components with clear props interfaces
-- **Error Boundaries**: Toast notifications for user feedback
-
-### Assumptions Made
-1. Tasks are simple operations without complex dependencies
-2. Progress is linear and can be simulated with time-based increments
-3. No user authentication required for this demo
-4. Tasks don't persist between browser sessions (in-memory storage)
-5. Single-user application (no concurrent user handling)
-
-## File Structure
-
-```
-src/
-├── components/           # React components
-│   ├── ui/              # shadcn/ui components
-│   ├── TaskCard.tsx     # Individual task display
-│   ├── TaskForm.tsx     # Task creation form
-│   └── TaskList.tsx     # Task list container
-├── hooks/
-│   └── useTasks.ts      # Task management hook
-├── services/
-│   └── mockApi.ts       # Simulated backend API
-├── types/
-│   └── task.ts          # TypeScript interfaces
-└── pages/
-    └── Index.tsx        # Main application page
+# Start development server
+npm run dev
 ```
 
-## Future Enhancements
+The frontend will be available at http://localhost:5173
 
-- Real backend API integration
-- Task persistence with database
-- User authentication and multi-tenancy
-- Task scheduling and dependencies
-- Advanced progress indicators
-- Task history and analytics
-- Export functionality
-- WebSocket support for real-time updates
+### Backend Setup
+
+```bash
+# Navigate to backend directory
+cd backend
+
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start the server
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+The backend API will be available at http://localhost:8000
+
+## API Endpoints
+
+### Tasks
+- `POST /api/tasks` - Create a new task
+- `GET /api/tasks` - Get all tasks
+- `GET /api/tasks/{task_id}` - Get a specific task
+- `POST /api/tasks/{task_id}/run` - Start executing a task
+- `POST /api/tasks/{task_id}/pause` - Pause a running task
+- `POST /api/tasks/{task_id}/resume` - Resume a paused task
+- `POST /api/tasks/{task_id}/cancel` - Cancel a task
+
+### Health Check
+- `GET /health` - Health check endpoint
+
+## API Documentation
+
+When running the backend, you can access the interactive API documentation at:
+- **Swagger UI**: http://localhost:8000/docs
+- **ReDoc**: http://localhost:8000/redoc
+
+## Project Structure
+
+```
+health-task-orchestrator/
+├── src/                    # Frontend source code
+│   ├── components/         # React components
+│   ├── hooks/             # Custom React hooks
+│   ├── services/          # API services
+│   ├── types/             # TypeScript type definitions
+│   └── pages/             # Page components
+├── backend/               # Backend source code
+│   ├── main.py           # FastAPI application
+│   ├── requirements.txt  # Python dependencies
+│   └── Dockerfile        # Backend Docker configuration
+├── Dockerfile            # Frontend Docker configuration
+├── docker-compose.yml    # Docker Compose configuration
+└── README.md             # This file
+```
+
+## Key Technical Decisions
+
+### Frontend
+- **React with TypeScript**: For type safety and better developer experience
+- **Vite**: For fast development and optimized builds
+- **Tailwind CSS**: For utility-first styling and rapid UI development
+- **Shadcn/ui**: For pre-built, accessible UI components
+- **Custom hooks**: For reusable state management logic
+- **API polling**: For real-time task progress updates
+
+### Backend
+- **FastAPI**: For modern, fast Python web framework with automatic API documentation
+- **Pydantic**: For data validation and serialization
+- **Async/await**: For non-blocking task execution
+- **In-memory storage**: For simplicity (in production, use a database)
+- **CORS middleware**: For frontend integration
+
+### Architecture
+- **RESTful API**: Clean, predictable API design
+- **Separation of concerns**: Clear separation between frontend and backend
+- **Docker containerization**: For consistent deployment across environments
+- **Environment variables**: For configuration management
+
+## Development Notes
+
+### AI Assistance
+This project was developed with assistance from AI tools:
+- **GitHub Copilot**: For code completion and suggestions
+- **ChatGPT**: For architectural decisions and problem-solving
+- **Cursor**: For intelligent code editing and refactoring
+
+### Task Simulation
+Tasks simulate 30-second long-running operations with:
+- Progress updates every 0.5 seconds
+- Pause/resume functionality
+- Cancellation support
+- Real-time status tracking
+
+### Error Handling
+- Comprehensive error handling on both frontend and backend
+- User-friendly error messages
+- Graceful degradation for network issues
+
+## Production Considerations
+
+For production deployment, consider:
+
+1. **Database**: Replace in-memory storage with a proper database (PostgreSQL, MongoDB)
+2. **Authentication**: Add user authentication and authorization
+3. **Logging**: Implement structured logging
+4. **Monitoring**: Add health checks and metrics
+5. **Security**: Implement rate limiting, input validation, and security headers
+6. **Scaling**: Use message queues for task processing (Celery, Redis)
+7. **Environment**: Use environment-specific configuration files
 
 ## Testing
 
-To run the application and test functionality:
+To run tests (when implemented):
 
-1. Create multiple tasks with different titles
-2. Start a task and observe the progress indicator
-3. Test pause/resume functionality mid-execution
-4. Cancel tasks at different stages
-5. Verify status updates and result displays
+```bash
+# Frontend tests
+npm test
+
+# Backend tests
+cd backend
+python -m pytest
+```
 
 ## Contributing
 
-This project was built as a technical demonstration. For production use, consider:
-
-- Adding comprehensive unit and integration tests
-- Implementing proper error boundaries
-- Adding accessibility features
-- Optimizing for performance with large task lists
-- Implementing proper logging and monitoring
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
 ## License
 
-This project is for demonstration purposes only.
+This project is licensed under the MIT License.

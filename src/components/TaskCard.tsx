@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { highlightTextJSX } from '@/lib/utils';
 import { 
   Play, 
   Pause, 
@@ -17,13 +18,14 @@ import { format } from 'date-fns';
 
 interface TaskCardProps {
   task: Task;
+  searchQuery?: string;
   onRun: (id: string) => void;
   onPause: (id: string) => void;
   onResume: (id: string) => void;
   onCancel: (id: string) => void;
 }
 
-export function TaskCard({ task, onRun, onPause, onResume, onCancel }: TaskCardProps) {
+export function TaskCard({ task, searchQuery = '', onRun, onPause, onResume, onCancel }: TaskCardProps) {
   const getStatusIcon = () => {
     switch (task.status) {
       case 'pending':
@@ -79,7 +81,9 @@ export function TaskCard({ task, onRun, onPause, onResume, onCancel }: TaskCardP
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <CardTitle className="text-lg">{task.title}</CardTitle>
+            <CardTitle className="text-lg">
+              {highlightTextJSX(task.title, searchQuery)}
+            </CardTitle>
             <p className="text-sm text-muted-foreground">
               Created {format(new Date(task.createdAt), 'MMM d, yyyy HH:mm')}
             </p>
@@ -93,7 +97,9 @@ export function TaskCard({ task, onRun, onPause, onResume, onCancel }: TaskCardP
       
       <CardContent className="space-y-4">
         {task.description && (
-          <p className="text-sm text-muted-foreground">{task.description}</p>
+          <p className="text-sm text-muted-foreground">
+            {highlightTextJSX(task.description, searchQuery)}
+          </p>
         )}
 
         {(task.status === 'in-progress' || task.status === 'paused') && (

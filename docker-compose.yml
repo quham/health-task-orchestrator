@@ -3,11 +3,26 @@ version: '3.8'
 services:
   frontend:
     build: .
+    platform: linux/amd64
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
-    volumes:
-      - ./:/app
-      - /app/node_modules
-    command: serve -s dist -l 3000
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    platform: linux/amd64
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
