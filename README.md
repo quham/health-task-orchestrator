@@ -9,16 +9,16 @@ A full-stack web application that allows users to manage and execute long-runnin
 - **Real-time Progress**: Live progress tracking with percentage completion
 - **Task Control**: Pause, resume, and cancel running tasks
 - **Status Tracking**: Monitor task status (pending, in-progress, paused, completed, cancelled)
-- **Modern UI**: Beautiful, responsive interface built with React and Tailwind CSS
-- **Docker Support**: Easy deployment with Docker and Docker Compose
+- **Filter and Search**: Easily find the task you are looking for with filter and search functionality
+
 
 ## Tech Stack
 
 ### Frontend
 - **React 18** with TypeScript
 - **Vite**
-- **Tailwind CSS** for styling
-- **Shadcn/ui** for UI components
+- **Tailwind CSS** 
+- **Shadcn/ui** 
 
 ### Backend **Python 3.11** 
 docker-compose up --build
@@ -124,8 +124,8 @@ This has been kept quite simple and general and not specific to healthcare setti
 - More properties for task e.g. due date, category, patient, priority
 - Templates for different kinds of tasks
 - Login and Auth
-- From in memory storage to DB with Auth
+- From in-memory storage to DB with Auth
 - Test suite
-- Tailor to healthcare setting via discussions with healthcare professionals
+- Tailor to healthcare via discussions with healthcare professionals
 - Task Anyalytics: completion rates, completion time etc.
 
