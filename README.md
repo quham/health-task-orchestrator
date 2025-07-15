@@ -119,12 +119,13 @@ health-task-orchestrator/
 
 This has been kept quite simple and general and not specific to healthcare setting at the moment.
 
-Basic Additions if continued:
-More properties for task e.g. due date, category, patient, priority
-Templates for different kinds of tasks
-Login and Auth
-From in memory storage to DB with Auth
-Test suite
-Tailor to healthcare setting via discussions with healthcare professionals
-Task Anyalytics: completion rates, completion time etc.
+## Basic Additions if continued:
+
+- More properties for task e.g. due date, category, patient, priority
+- Templates for different kinds of tasks
+- Login and Auth
+- From in memory storage to DB with Auth
+- Test suite
+- Tailor to healthcare setting via discussions with healthcare professionals
+- Task Anyalytics: completion rates, completion time etc.
 
